@@ -1,103 +1,74 @@
 # Netflix EDA SQL Project: Business Understanding
 
-This project uses SQL-based Exploratory Data Analysis (EDA) on Netflix titles data to generate business insights for catalog strategy, regional expansion, and audience targeting.
+This is a portfolio project. The goal is to show that I can use SQL to turn raw Netflix catalog data into simple business insights.
 
 ## Business Context
 
-Streaming platforms must balance catalog variety, freshness, and audience fit while controlling content investment risk. Understanding what is currently in the library and how it evolved over time helps answer:
-
-1. Is the catalog balanced between Movies and TV Shows?
-2. Are we overly concentrated in specific countries, genres, or ratings?
-3. Is recent growth aligned with strategic priorities?
-4. What talent and content formats appear most repeatedly?
+Netflix has many titles across movie and TV content. To make better decisions, teams need a quick view of what is in the catalog, where it comes from, and how the catalog is changing over time.
 
 ## Problem Statement
 
-Netflix needs a data-driven view of its content portfolio to inform acquisition, commissioning, localization, and merchandising decisions.
+Without clear analysis, it is hard to know:
 
-## Business Objectives
+1. If the catalog mix is balanced.
+2. Which content ratings are most common.
+3. Which countries and genres are leading.
+4. Whether new content is being added consistently.
 
-1. Profile catalog composition by type, rating, genre, geography, and talent.
-2. Measure temporal patterns in content additions and release recency.
-3. Identify concentration risks and diversification opportunities.
-4. Build reusable EDA outputs for stakeholder reporting and portfolio storytelling.
+## Project Objective
 
-## Scope of Analysis
+Build a focused SQL EDA report that answers core catalog questions in a way that is easy for a beginner to explain in interviews.
 
-The analysis covers:
+## Scope (Kept Small on Purpose)
 
-1. Data quality and completeness checks.
-2. Catalog mix and structural distribution.
-3. Time-series trends (yearly additions, monthly seasonality, decade patterns).
-4. Geographic spread (single-country and split multi-country analysis).
-5. Genre footprint (combined genres and exploded genre-level trends).
-6. Talent footprint (directors and cast frequency).
-7. Format depth (movie minutes, TV seasons).
-8. Advanced slices (YoY growth, release-to-platform lag, recency buckets).
+This project is limited to the most useful portfolio insights:
+
+1. Content type mix (Movies vs TV Shows).
+2. Rating distribution.
+3. Yearly trend of titles added.
+4. Top countries by title count.
+5. Top genres by title count.
 
 ## Key Stakeholders
 
-1. Content Strategy Team: decides content mix and category priorities.
-2. Acquisition Team: identifies high-performing source regions and genres.
-3. Production/Commissioning Team: evaluates talent concentration and opportunities.
-4. Marketing & Merchandising Team: aligns campaigns with audience ratings and genre trends.
-5. Regional Leadership: assesses country-level catalog coverage.
+1. Content Strategy: understands mix and gaps.
+2. Acquisition Team: sees strong countries and genres.
+3. Marketing Team: aligns campaigns with rating and genre patterns.
+4. Portfolio Reviewer/Recruiter: checks SQL thinking and business clarity.
 
-## Key Business Questions
+## Key Business Questions (6)
 
-1. What percentage of the catalog is Movies vs TV Shows?
-2. Which ratings dominate overall and within each content type?
-3. How has title addition volume changed year over year?
-4. Which months show stronger content addition seasonality?
-5. Which countries contribute the most titles after splitting multi-country rows?
-6. Which genres are most common, and how do top genres shift by year?
-7. Which directors and cast members appear most frequently?
-8. What is the runtime profile of movies and season profile of TV Shows?
-9. How long after release are titles added to Netflix on average?
-10. Is the catalog tilted toward older titles or newer releases?
+1. What share of the catalog is Movies vs TV Shows?
+2. Which audience ratings appear most often?
+3. How many titles were added each year, and is the trend growing or slowing?
+4. Which countries contribute the highest number of titles?
+5. Which genres are most common in the catalog?
+6. Are there concentration risks (for example, too much content from a few countries or genres)?
 
-## Analytical KPIs
+## Core KPIs (5)
 
-1. Catalog size and unique title IDs.
-2. Percent share by content type.
-3. Percent share by audience rating.
-4. Yearly additions and YoY growth percentage.
-5. Top countries by title count (exploded country analysis).
-6. Top genres by title count (exploded genre analysis).
-7. Average years-to-arrive metric: `YEAR(date_added) - release_year`.
-8. Runtime statistics: average/min/max movie duration.
-9. TV season depth distribution.
-10. Recency bucket distribution (0-1, 2-5, 6-10, 10+ years old).
+1. Type Mix %: percentage of Movies and TV Shows.
+2. Top Rating Share %: share of the most common audience ratings.
+3. Yearly Additions: number of titles added per year.
+4. Country Concentration: percentage share of titles from top 5 countries.
+5. Genre Concentration: percentage share of titles from top 5 genres.
 
 ## Data and Technical Assumptions
 
-1. The cleaned view `netflix_clean` is the primary source for EDA queries.
-2. Nulls/blanks are standardized in the cleaning layer (for example Unknown, Not Rated).
-3. The SQL scripts are designed for MySQL 8+ (CTEs, window functions, JSON_TABLE).
-4. Multi-value fields such as `country`, `listed_in`, and `cast` are comma-separated and require split logic for deeper analysis.
+1. The cleaned view `netflix_clean` is used for EDA.
+2. Missing values are standardized in the cleaning step.
+3. SQL runs on MySQL 8+.
+4. Multi-value fields like country and genre are split for accurate counting.
 
 ## Risks and Limitations
 
-1. Country, genre, and cast are multi-valued text fields; split logic may still miss edge-case formatting.
-2. This dataset captures catalog metadata, not direct engagement outcomes (watch time, completion, retention).
-3. Frequent appearance of a director/actor does not imply performance impact.
-4. Missing values replaced during cleaning can reduce granularity for root-cause diagnostics.
+1. This dataset shows catalog metadata, not user watch behavior.
+2. Split logic for multi-value columns may miss rare text formatting issues.
+3. High count does not mean high business performance.
 
-## Expected Business Outcomes
+## Expected Portfolio Outcome
 
-1. A clear view of current catalog composition and concentration.
-2. Better prioritization of acquisition and commissioning by region/genre/type.
-3. Improved release planning using seasonality and freshness insights.
-4. Portfolio-ready SQL narrative demonstrating end-to-end analytics maturity.
-
-## Query-to-Objective Mapping
-
-1. Dataset quality profile: completeness, duplicate IDs, field-level missingness.
-2. Composition analysis: type and rating shares, type-rating matrix.
-3. Time analysis: yearly additions, YoY, monthly seasonality, decade distribution.
-4. Geography analysis: top countries, split-country ranking, type-by-country leaders.
-5. Genre analysis: genre combinations, exploded genre frequency, yearly top genres.
-6. Talent analysis: directors, type-wise director distribution, exploded cast frequency.
-7. Format analysis: movie runtime distribution, TV seasons distribution.
-8. Advanced strategy slices: top ratings by type, release lag, recency bucket mix.
+1. A clear, interview-ready SQL story with focused scope.
+2. Easy-to-explain KPIs and business questions.
+3. A strong demonstration of practical EDA for business decisions.
 

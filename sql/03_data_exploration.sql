@@ -1,5 +1,5 @@
--- This line selects the netflix_project database so all queries run on the correct database
-USE netflix_project;
+-- This line selects the netflix_db database so all queries run on the correct database
+USE netflix_db;
 
 -- This section checks how many total records exist in the dataset
 

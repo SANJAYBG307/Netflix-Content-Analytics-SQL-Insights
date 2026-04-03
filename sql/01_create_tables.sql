@@ -1,7 +1,7 @@
--- This line creates a new database called netflix_project if it does not already exist
+-- This line creates a new database called netflix_db if it does not already exist
 CREATE DATABASE IF NOT EXISTS netflix_db;
 
--- This line tells MySQL to use the netflix_project database for all following commands
+-- This line tells MySQL to use the netflix_db database for all following commands
 USE netflix_db;
 
 -- This line begins the creation of a table called netflix_raw that will store the raw dataset
