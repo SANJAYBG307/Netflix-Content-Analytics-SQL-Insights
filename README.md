@@ -136,14 +136,13 @@ Netflix EDA Project
 ├── data/
 │   └── netflix_titles.csv
 ├── docs/
-│   ├── Bussiness_Understanding.md
-│   └── eda_query_results.txt
+│   └── business_understanding.md
 └── sql/
-    ├── create_tables.sql
-    ├── load_data.sql
-    ├── cleaning_views.sql
-    ├── data_exploration.sql
-    └── eda_queries.sql
+  ├── 01_create_tables.sql
+  ├── 02_load_data.sql
+  ├── 03_cleaning_views.sql
+  ├── 04_data_exploration.sql
+  └── 05_eda_queries.sql
 ```
 
 ## ▶️ Repro Steps
@@ -154,11 +153,11 @@ mysql -u root -p
 
 Run scripts in this order:
 
-1. `SOURCE sql/create_tables.sql;`
-2. `SOURCE sql/load_data.sql;`
-3. `SOURCE sql/cleaning_views.sql;`
-4. `SOURCE sql/data_exploration.sql;`
-5. `SOURCE sql/eda_queries.sql;`
+1. `SOURCE sql/01_create_tables.sql;`
+2. `SOURCE sql/02_load_data.sql;`
+3. `SOURCE sql/03_cleaning_views.sql;`
+4. `SOURCE sql/04_data_exploration.sql;`
+5. `SOURCE sql/05_eda_queries.sql;`
 
 ## 💼 Recruiter Value
 
