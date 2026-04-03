@@ -43,6 +43,8 @@ Use SQL to answer core business questions about catalog mix, growth trend, count
 - Country concentration (Top 5 share): 58.34% (Medium risk)
 - Genre concentration (Top 5 share): 17.95% (Low risk)
 
+Detailed recruiter-friendly results: `findings/eda_findings.md`
+
 ## SQL File Coverage
 
 The focused KPI queries are in `sql/05_eda_queries.sql`:
@@ -62,6 +64,8 @@ Netflix EDA Project
 │   └── netflix_titles.csv
 ├── docs/
 │   └── business_understanding.md
+├── findings/
+│   └── eda_findings.md
 └── sql/
     ├── 01_create_tables.sql
     ├── 02_load_data.sql
