@@ -1,74 +1,86 @@
 # Netflix EDA SQL Project: Business Understanding
 
-This is a portfolio project. The goal is to show that I can use SQL to turn raw Netflix catalog data into simple business insights.
+This portfolio project demonstrates how raw catalog metadata can be transformed into analysis-ready data and converted into practical business insights using MySQL.
 
 ## Business Context
 
-Netflix has many titles across movie and TV content. To make better decisions, teams need a quick view of what is in the catalog, where it comes from, and how the catalog is changing over time.
+Netflix maintains a large catalog of Movies and TV Shows across multiple countries, audience ratings, and genre categories. Teams need reliable, easy-to-interpret insights to understand catalog composition, growth behavior, and concentration risk.
 
 ## Problem Statement
 
-Without clear analysis, it is hard to know:
-
-1. If the catalog mix is balanced.
-2. Which content ratings are most common.
-3. Which countries and genres are leading.
-4. Whether new content is being added consistently.
+Raw source data contains missing values, inconsistent text labels, duplicate records, mixed data formats, and potential outliers. If these issues are not handled first, EDA outputs can be misleading and less useful for decision-making.
 
 ## Project Objective
 
-Build a focused SQL EDA report that answers core catalog questions in a way that is easy for a beginner to explain in interviews.
+Build an end-to-end SQL workflow that:
 
-## Scope (Kept Small on Purpose)
+1. Cleans and validates data using layered views.
+2. Produces reproducible, beginner-friendly EDA outputs.
+3. Answers core business questions in an interview-ready format.
 
-This project is limited to the most useful portfolio insights:
+## Scope
 
-1. Content type mix (Movies vs TV Shows).
+The project focuses on catalog-level EDA with a clear and controlled scope:
+
+1. Content type mix (Movie vs TV Show).
 2. Rating distribution.
-3. Yearly trend of titles added.
-4. Top countries by title count.
-5. Top genres by title count.
+3. Content additions trend over time.
+4. Country contribution and concentration.
+5. Genre contribution and concentration.
+
+## Cleaning and Preparation Skills Demonstrated
+
+The cleaning pipeline is intentionally designed for learning and explanation:
+
+1. Handling missing values.
+2. Removing duplicates.
+3. Fixing data types.
+4. Standardizing formats (dates, labels, units).
+5. Handling outliers through explicit flags.
+6. Correcting inconsistencies in categorical values.
+7. Data validation after cleaning through audit and rule flags.
 
 ## Key Stakeholders
 
-1. Content Strategy: understands mix and gaps.
-2. Acquisition Team: sees strong countries and genres.
-3. Marketing Team: aligns campaigns with rating and genre patterns.
-4. Portfolio Reviewer/Recruiter: checks SQL thinking and business clarity.
+1. Content Strategy Team: reviews catalog balance and concentration.
+2. Acquisition Team: identifies strong source countries and genre opportunities.
+3. Marketing Team: aligns campaign messaging with rating and content mix.
+4. Recruiters and Portfolio Reviewers: evaluate SQL quality, business framing, and clarity of communication.
 
-## Key Business Questions (6)
+## Key Business Questions
 
-1. What share of the catalog is Movies vs TV Shows?
-2. Which audience ratings appear most often?
-3. How many titles were added each year, and is the trend growing or slowing?
-4. Which countries contribute the highest number of titles?
-5. Which genres are most common in the catalog?
-6. Are there concentration risks (for example, too much content from a few countries or genres)?
+1. What percentage of the catalog is Movies vs TV Shows?
+2. Which ratings dominate the catalog?
+3. How has title addition changed year over year?
+4. Which countries contribute most to the catalog?
+5. Which genre combinations appear most frequently?
+6. Is there concentration risk in countries or genres?
 
-## Core KPIs (5)
+## Core KPIs
 
-1. Type Mix %: percentage of Movies and TV Shows.
-2. Top Rating Share %: share of the most common audience ratings.
-3. Yearly Additions: number of titles added per year.
-4. Country Concentration: percentage share of titles from top 5 countries.
-5. Genre Concentration: percentage share of titles from top 5 genres.
+1. Type Mix Percentage.
+2. Rating Share Percentage.
+3. Yearly Additions and YoY Change.
+4. Top-5 Country Share Percentage.
+5. Top-5 Genre Share Percentage.
 
 ## Data and Technical Assumptions
 
-1. The cleaned view `netflix_clean` is used for EDA.
-2. Missing values are standardized in the cleaning step.
-3. SQL runs on MySQL 8+.
-4. Multi-value fields like country and genre are split for accurate counting.
+1. EDA is performed on the cleaned analytical view `netflix_clean_final`.
+2. MySQL 8+ is required (window functions are used in de-duplication logic).
+3. `country` and `listed_in` are analyzed as stored single text values in this version (no row-level splitting).
+4. Outliers are flagged for review rather than hard-deleted.
 
 ## Risks and Limitations
 
-1. This dataset shows catalog metadata, not user watch behavior.
-2. Split logic for multi-value columns may miss rare text formatting issues.
-3. High count does not mean high business performance.
+1. The dataset represents catalog metadata, not watch-time or revenue outcomes.
+2. Some text fields are multi-value strings, which can understate granularity without split modeling.
+3. A high count in a category does not automatically imply business impact.
+4. Remaining unknown values are intentionally preserved with explicit defaults for transparency.
 
 ## Expected Portfolio Outcome
 
-1. A clear, interview-ready SQL story with focused scope.
-2. Easy-to-explain KPIs and business questions.
-3. A strong demonstration of practical EDA for business decisions.
+1. A clear and reproducible SQL workflow from raw data to validated analytical views.
+2. A strong demonstration of practical data cleaning and preparation skills.
+3. Business-focused EDA findings that are easy to discuss in interviews.
 

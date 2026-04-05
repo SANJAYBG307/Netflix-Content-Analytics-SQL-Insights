@@ -1,30 +1,16 @@
-# Netflix Catalog EDA Findings
+# Netflix EDA Findings (Simple Report)
 
-Date of analysis: April 3, 2026  
+Date: April 5, 2026  
 Database: netflix_db  
-Data source: Netflix titles CSV
+Main view used for analysis: netflix_clean_final
 
-## Executive Summary
+## What this report is about
 
-This analysis evaluates Netflix catalog composition, maturity profile, growth pattern, and concentration risk using a cleaned analytical view. The final working dataset contains 8,807 unique titles after standardization and de-duplication.
+This report gives clear answers to the business questions and KPIs from the project. All EDA numbers are taken from the cleaned view, not from the raw table.
 
-Key conclusions:
+## Scripts run
 
-1. The catalog is movie-led, with Movies representing 69.62% of all titles.
-2. Content skews toward mature audiences; TV-MA and TV-14 jointly account for 60.94%.
-3. Content additions accelerated rapidly from 2016 to 2019, then moderated in 2020 and 2021.
-4. Country concentration is moderate, with the top five countries contributing 58.34% of known-country titles.
-5. Genre concentration is low at the stored-combination level, with a top-five share of 17.95%.
-
-## Scope and Method
-
-1. SQL scripts were executed sequentially from table creation through EDA.
-2. Analysis is performed on netflix_clean_final, produced by a cleaning pipeline that standardizes values and removes duplicates.
-3. Country and genre metrics reflect values as stored in single text fields, without splitting multi-value strings into separate rows.
-
-## Execution Validation
-
-Scripts executed successfully in this order:
+I ran these files in order:
 
 1. sql/01_create_tables.sql
 2. sql/02_load_data.sql
@@ -32,42 +18,47 @@ Scripts executed successfully in this order:
 4. sql/04_cleaning_views.sql
 5. sql/05_eda_queries.sql
 
-Result: All scripts completed without SQL errors.
+Note:
 
-## Data Quality and Pipeline Outcome
+1. LOAD DATA LOCAL INFILE worked after enabling local_infile on MySQL server.
 
-| Stage | Records |
+## Data cleaning summary
+
+| Stage | Rows |
 |---|---:|
-| Raw input rows | 17,614 |
-| Standardized rows | 17,614 |
-| De-duplicated rows | 8,807 |
+| Raw rows | 26,421 |
+| After missing value handling | 26,421 |
+| After standardization | 26,421 |
+| After type fixes | 26,421 |
+| After de-duplication | 8,807 |
 | Final cleaned rows | 8,807 |
-| Duplicate rows removed | 8,807 |
+| Duplicates removed | 17,614 |
 
-Post-cleaning missingness audit:
+Quality checks after cleaning:
 
-| Field | Missing Count |
+| Check | Value |
 |---|---:|
-| Director | 2,634 |
-| Cast | 825 |
-| Country | 831 |
-| Date Added | 10 |
-| Rating | 4 |
-| Genre | 0 |
-| Release Year | 0 |
+| Missing director (set to Unknown) | 2,634 |
+| Missing cast (set to Unknown) | 825 |
+| Missing country (set to Unknown) | 831 |
+| Missing date_added | 10 |
+| Missing release_year | 0 |
+| Not Rated defaults | 90 |
+| Movie duration outliers flagged | 173 |
+| TV season outliers flagged | 0 |
 
-## Core Findings
+## KPI answers
 
-### 1) Catalog Mix
+### KPI 1: Type mix
 
 | Type | Titles | Share |
 |---|---:|---:|
 | Movie | 6,131 | 69.62% |
 | TV Show | 2,676 | 30.38% |
 
-Interpretation: The catalog has materially higher depth in films than in episodic content.
+### KPI 2: Rating share
 
-### 2) Audience Rating Distribution
+Top ratings:
 
 | Rating | Titles | Share |
 |---|---:|---:|
@@ -77,22 +68,23 @@ Interpretation: The catalog has materially higher depth in films than in episodi
 | R | 799 | 9.07% |
 | PG-13 | 490 | 5.56% |
 
-Interpretation: Mature and teen-oriented categories dominate the rating profile.
-
-### 3) Title Additions Over Time
+### KPI 3: Yearly additions and YoY
 
 | Metric | Value |
 |---|---|
-| Peak additions year | 2019 |
+| Peak year | 2019 |
 | Titles added in peak year | 2,016 |
 | Titles added in 2021 | 1,498 |
 | YoY change (2021 vs 2020) | -381 |
 
-Interpretation: The platform experienced high expansion through 2019, followed by a slowdown.
+### KPI 4: Top-5 country share
 
-### 4) Country Concentration
+| Metric | Value |
+|---|---:|
+| Top-5 country share | 58.34% |
+| Risk level | Medium |
 
-Top countries by title count:
+Top countries:
 
 | Country | Titles |
 |---|---:|
@@ -102,16 +94,16 @@ Top countries by title count:
 | Japan | 245 |
 | South Korea | 199 |
 
-Top-5 country share: 58.34%  
-Risk label: Medium concentration risk
+### KPI 5: Top-5 genre share
 
-Interpretation: Content supply is diversified, but still anchored by a small set of major countries.
+| Metric | Value |
+|---|---:|
+| Top-5 genre share | 17.95% |
+| Risk level | Low |
 
-### 5) Genre Concentration
+Top genre combinations:
 
-Top genre combinations by title count:
-
-| Genre Combination | Titles |
+| Genre | Titles |
 |---|---:|
 | Dramas, International Movies | 362 |
 | Documentaries | 359 |
@@ -119,22 +111,41 @@ Top genre combinations by title count:
 | Comedies, Dramas, International Movies | 274 |
 | Dramas, Independent Movies, International Movies | 252 |
 
-Top-5 genre share: 17.95%  
-Risk label: Low concentration risk
+## Business question answers
 
-Interpretation: No single genre combination dominates the catalog, indicating broad thematic variety.
+1. Movie vs TV Show share: Movies are 69.62%, TV Shows are 30.38%.
+2. Most common ratings: TV-MA and TV-14 are the top two.
+3. Growth trend: strong growth up to 2019, then slowdown in 2020 and 2021.
+4. Top countries: United States, India, United Kingdom, Japan, and South Korea.
+5. Top genres: mostly drama/international combinations, documentaries, and stand-up comedy.
+6. Concentration risk: medium by country and low by genre.
 
-## Limitations and Notes
+## Recommendations for stakeholders
 
-1. Country and genre fields are multi-value text in source data; this report treats each row as stored for a beginner-friendly, single-table analysis.
-2. A small number of rating anomalies remain in the source (for example, duration-like values in the rating field).
-3. Missing director, cast, and country values are not imputed for analytical interpretation; they are tracked transparently in the audit view.
+### For Content Strategy
 
-## Portfolio Relevance
+1. Keep movie strength, but increase selected TV Show investments to improve catalog balance.
+2. Reduce country concentration risk by expanding content sourcing beyond top countries.
+3. Continue investing in strong genre clusters, but test adjacent genres for growth.
 
-This project demonstrates:
+### For Content Acquisition
 
-1. End-to-end SQL workflow execution with reproducible script order.
-2. Data cleaning design using layered views and auditability.
-3. KPI-oriented EDA with clear business interpretation.
-4. Communication of findings in a concise, stakeholder-ready format.
+1. Keep strong pipelines in top countries, but add targets for new or underrepresented regions.
+2. Review top-5 country share every quarter to track concentration.
+3. Use metadata quality checks before ingest completion.
+
+### For Marketing
+
+1. Focus major campaigns on dominant rating segments (TV-MA and TV-14).
+2. Plan retention campaigns during slower catalog-addition periods.
+3. Promote cross-genre bundles to improve discovery.
+
+### For Data and Analytics Team
+
+1. Add TRUNCATE before reload to avoid repeated appends in raw table.
+2. Keep outlier flags active and review flagged rows regularly.
+3. Keep validation checks for date parsing, rating cleanup, and required fields.
+
+## Final note
+
+This analysis is based on catalog metadata only. It does not include watch-time, engagement, or revenue behavior.
