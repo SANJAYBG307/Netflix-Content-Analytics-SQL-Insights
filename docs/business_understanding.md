@@ -1,86 +1,50 @@
-# Netflix EDA SQL Project: Business Understanding
+# Netflix Catalog Intelligence Business Understanding
 
-This portfolio project demonstrates how raw catalog metadata can be transformed into analysis-ready data and converted into practical business insights using MySQL.
+## Business Problem
+
+The raw Netflix data has many repeated rows and messy values. Because of this, direct reporting can give wrong results. The business needs clean and reliable numbers to understand content mix, growth over time, and whether too much content comes from only a few countries or genres.
+
+## Stakeholders
+
+1. Management team: tracks catalog growth and risk.
+2. Content Strategy team: decides movie vs TV Show balance and rating focus.
+3. Acquisition team: decides from which countries and genres to buy more content.
+4. Data and BI team: prepares and tracks KPI reports regularly.
 
 ## Business Context
 
-Netflix maintains a large catalog of Movies and TV Shows across multiple countries, audience ratings, and genre categories. Teams need reliable, easy-to-interpret insights to understand catalog composition, growth behavior, and concentration risk.
+This project uses Netflix catalog data in MySQL. The raw table is cleaned using SQL views step by step. All final analysis is done on the cleaned view, netflix_clean_final, not on raw data.
 
-## Problem Statement
+Cleaning includes fixing missing values, standardizing fields, correcting data types, removing duplicates, flagging outliers, and validating data quality. After cleaning, we keep 8,807 unique titles from 26,421 raw rows.
 
-Raw source data contains missing values, inconsistent text labels, duplicate records, mixed data formats, and potential outliers. If these issues are not handled first, EDA outputs can be misleading and less useful for decision-making.
+## Business Objective
 
-## Project Objective
+Create a repeatable SQL workflow that turns raw data into business-ready KPIs. The goal is to measure catalog mix, rating profile, growth trend, and concentration risk so teams can make better content and acquisition decisions.
 
-Build an end-to-end SQL workflow that:
+## Business Questions
 
-1. Cleans and validates data using layered views.
-2. Produces reproducible, beginner-friendly EDA outputs.
-3. Answers core business questions in an interview-ready format.
+1. What is the final split between Movies and TV Shows?
+2. Which ratings are most common?
+3. How many titles are added each year, and how does this change year by year?
+4. How much of the catalog comes from the top 5 countries?
+5. How much of the catalog comes from the top 5 genre groups?
+6. Are there any data quality issues that can affect business decisions?
 
-## Scope
+## KPIs
 
-The project focuses on catalog-level EDA with a clear and controlled scope:
+1. Type Mix Percentage: Movie vs TV Show share.
+2. Rating Share Percentage: share of titles by rating.
+3. Yearly Additions and YoY Change: titles added per year and yearly increase/decrease.
+4. Top-5 Country Share Percentage: share contributed by top 5 countries (excluding Unknown).
+5. Top-5 Genre Share Percentage: share contributed by top 5 genre combinations.
 
-1. Content type mix (Movie vs TV Show).
-2. Rating distribution.
-3. Content additions trend over time.
-4. Country contribution and concentration.
-5. Genre contribution and concentration.
+## Analytical Focus
 
-## Cleaning and Preparation Skills Demonstrated
+The analysis focuses on practical business use:
 
-The cleaning pipeline is intentionally designed for learning and explanation:
+1. Content mix: Movie vs TV Show and rating breakdown.
+2. Growth trend: yearly additions and slowdown after peak years.
+3. Concentration risk: dependency on top countries and top genres.
+4. Data trust: checks for missing values, defaults, duplicates, and outlier flags.
 
-1. Handling missing values.
-2. Removing duplicates.
-3. Fixing data types.
-4. Standardizing formats (dates, labels, units).
-5. Handling outliers through explicit flags.
-6. Correcting inconsistencies in categorical values.
-7. Data validation after cleaning through audit and rule flags.
-
-## Key Stakeholders
-
-1. Content Strategy Team: reviews catalog balance and concentration.
-2. Acquisition Team: identifies strong source countries and genre opportunities.
-3. Marketing Team: aligns campaign messaging with rating and content mix.
-4. Recruiters and Portfolio Reviewers: evaluate SQL quality, business framing, and clarity of communication.
-
-## Key Business Questions
-
-1. What percentage of the catalog is Movies vs TV Shows?
-2. Which ratings dominate the catalog?
-3. How has title addition changed year over year?
-4. Which countries contribute most to the catalog?
-5. Which genre combinations appear most frequently?
-6. Is there concentration risk in countries or genres?
-
-## Core KPIs
-
-1. Type Mix Percentage.
-2. Rating Share Percentage.
-3. Yearly Additions and YoY Change.
-4. Top-5 Country Share Percentage.
-5. Top-5 Genre Share Percentage.
-
-## Data and Technical Assumptions
-
-1. EDA is performed on the cleaned analytical view `netflix_clean_final`.
-2. MySQL 8+ is required (window functions are used in de-duplication logic).
-3. `country` and `listed_in` are analyzed as stored single text values in this version (no row-level splitting).
-4. Outliers are flagged for review rather than hard-deleted.
-
-## Risks and Limitations
-
-1. The dataset represents catalog metadata, not watch-time or revenue outcomes.
-2. Some text fields are multi-value strings, which can understate granularity without split modeling.
-3. A high count in a category does not automatically imply business impact.
-4. Remaining unknown values are intentionally preserved with explicit defaults for transparency.
-
-## Expected Portfolio Outcome
-
-1. A clear and reproducible SQL workflow from raw data to validated analytical views.
-2. A strong demonstration of practical data cleaning and preparation skills.
-3. Business-focused EDA findings that are easy to discuss in interviews.
-
+This business understanding is directly linked to the SQL cleaning and KPI queries, so findings and recommendations are based on one consistent data source.
