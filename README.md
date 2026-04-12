@@ -1,8 +1,15 @@
 # 📺 Netflix EDA Project (MySQL)
 
-## 🚀 Project Overview
+## 🔎 Quick Glance
 
-This project converts raw Netflix catalog data into a clean, analysis-ready dataset using a SQL-based cleaning pipeline and view-driven EDA workflow.
+- Domain: OTT Content Analytics
+- Database: MySQL 8+
+- Focus: KPI and business-question driven EDA
+- Final analysis script: [sql/04.DataAnalysis.sql](sql/04.DataAnalysis.sql)
+
+## 🧭 Overview
+
+This project analyzes Netflix catalog data with MySQL and answers business-focused questions using one main KPI/business query script.
 
 The main objective is to answer business-focused questions with clear KPIs and interview-ready insights.
 
@@ -20,35 +27,27 @@ Understand how the Netflix catalog is distributed and changing over time by anal
 
 ---
 
-## 🧹 Data Preparation Workflow
+## 🧹 Data Preparation
 
-Implemented in [sql/04_cleaning_views.sql](sql/04_cleaning_views.sql), the pipeline demonstrates key data-cleaning skills:
+The table schema is defined in [sql/01_create_tables.sql](sql/01_create_tables.sql) and raw data is loaded using [sql/02_load_data.sql](sql/02_load_data.sql).
 
-1. Handling missing values
-2. Removing duplicates
-3. Fixing data types
-4. Standardizing formats (dates, labels, units)
-5. Handling outliers with flags
-6. Correcting inconsistencies
-7. Validating cleaned output with audit checks
-
-Final analytical view used for EDA: netflix_clean_final
+KPI and business analysis queries are executed from [sql/04.DataAnalysis.sql](sql/04.DataAnalysis.sql).
 
 ---
 
-## 📈 KPI Coverage
+## 📊 KPI Coverage
 
-The KPI queries are clearly mapped in [sql/05_eda_queries.sql](sql/05_eda_queries.sql):
+The KPI queries are mapped in [sql/04.DataAnalysis.sql](sql/04.DataAnalysis.sql):
 
-- 📊 KPI 1: Type Mix Percentage
-- 🏷️ KPI 2: Rating Share Percentage
-- 📅 KPI 3: Yearly Additions and YoY Change
-- 🌍 KPI 4: Top-5 Country Share Percentage
-- 🎬 KPI 5: Top-5 Genre Share Percentage
+- 1. Type Mix Percentage
+- 2. Rating Share Percentage
+- 3. Yearly Additions
+- 4. Top-5 Country Share Percentage
+- 5. Top-5 Genre Share Percentage
 
 ---
 
-## 🔍 Key Business Questions
+## ❓ Key Business Questions
 
 1. What share of the catalog is Movies vs TV Shows?
 2. Which audience ratings are most common?
@@ -59,7 +58,7 @@ The KPI queries are clearly mapped in [sql/05_eda_queries.sql](sql/05_eda_querie
 
 ---
 
-## 🧾 Current Results Snapshot
+## 📌 Results Snapshot
 
 - Total cleaned titles analyzed: 8,807
 - Movie share: 69.62%
@@ -78,11 +77,11 @@ Business context: [docs/business_understanding.md](docs/business_understanding.m
 
 - Database: MySQL 8+
 - Language: SQL
-- Approach: View-based data cleaning + KPI-driven EDA
+- Approach: SQL-based KPI and business question analysis
 
 ---
 
-## 📂 Project Structure
+## 🗂️ Project Structure
 
 ```text
 Netflix EDA Project
@@ -96,8 +95,7 @@ Netflix EDA Project
     ├── 01_create_tables.sql
     ├── 02_load_data.sql
     ├── 03_data_exploration.sql
-    ├── 04_cleaning_views.sql
-    └── 05_eda_queries.sql
+    └── 04.DataAnalysis.sql
 ```
 
 ---
@@ -108,15 +106,17 @@ Open MySQL and run scripts in this exact order:
 
 1. SOURCE sql/01_create_tables.sql;
 2. SOURCE sql/02_load_data.sql;
-3. SOURCE sql/03_data_exploration.sql;
-4. SOURCE sql/04_cleaning_views.sql;
-5. SOURCE sql/05_eda_queries.sql;
+3. SOURCE sql/04.DataAnalysis.sql;
+
+Optional quick preview:
+
+4. SOURCE sql/03_data_exploration.sql;
 
 If loading fails with local infile error, enable it on server and run again.
 
 ---
 
-## 💼 Portfolio Value
+## 💼 Recruiter Highlights
 
 This project demonstrates:
 
@@ -125,3 +125,10 @@ This project demonstrates:
 - KPI-first analysis with clear interpretation
 - Reproducible and reviewer-friendly project structure
 - Interview-ready storytelling from raw data to recommendations
+
+## 🧩 Section Guide
+
+- Project context: Overview, Business Objective
+- Execution flow: Data Preparation, How to Run
+- Analytical value: KPI Coverage, Results Snapshot
+- Hiring signal: Recruiter Highlights

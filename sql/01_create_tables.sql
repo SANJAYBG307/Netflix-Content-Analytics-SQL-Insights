@@ -8,40 +8,44 @@ USE netflix_db;
 CREATE TABLE IF NOT EXISTS netflix_raw (
 
 -- This column stores the unique ID of each Netflix title
-show_id VARCHAR(10),
+show_id CHAR(5) NOT NULL,
 
 -- This column stores whether the content is a Movie or TV Show
-type VARCHAR(20),
+type ENUM('Movie', 'TV Show') NOT NULL,
 
 -- This column stores the title of the movie or TV show
-title VARCHAR(255),
+title VARCHAR(150) NOT NULL,
 
 -- This column stores the director name
-director TEXT,
+director VARCHAR(255),
 
 -- This column stores the list of actors in the content
 cast TEXT,
 
 -- This column stores the country where the content was produced
-country TEXT,
+country VARCHAR(150),
 
 -- This column stores the date the content was added to Netflix
-date_added VARCHAR(50),
+date_added VARCHAR(20),
 
 -- This column stores the year the content was originally released
-release_year INT,
+release_year SMALLINT UNSIGNED,
 
 -- This column stores the audience rating classification
 rating VARCHAR(20),
 
 -- This column stores the duration of the movie or number of seasons
-duration VARCHAR(50),
+duration VARCHAR(20),
 
 -- This column stores the genre categories of the content
-listed_in TEXT,
+listed_in VARCHAR(120),
 
 -- This column stores the description of the content
-description TEXT
+description VARCHAR(500),
+
+KEY idx_show_id (show_id),
+KEY idx_type (type),
+KEY idx_release_year (release_year)
 
 -- This line ends the table creation command
 );

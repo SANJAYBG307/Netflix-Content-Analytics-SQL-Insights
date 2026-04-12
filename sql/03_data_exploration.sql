@@ -1,43 +1,76 @@
--- This line selects the netflix_db database so all queries run on the correct database
+-- Basic Data Exploration (Beginner Friendly)
+-- Only simple SQL concepts are used in this file.
+
 USE netflix_db;
 
--- This section checks how many total records exist in the dataset
+-- 1) Preview data
+SELECT *
+FROM netflix_raw
+LIMIT 10;
 
--- This query counts the number of rows stored in the netflix_raw table
-SELECT COUNT(*) AS total_records
+-- 2) Total number of rows
+SELECT COUNT(*) AS total_rows
 FROM netflix_raw;
 
--- This section analyzes the distribution of content types
-
--- This query groups the dataset by type to count how many Movies and TV Shows exist
+-- 3) Movie vs TV Show count
 SELECT type, COUNT(*) AS total_titles
 FROM netflix_raw
 GROUP BY type;
 
--- This section checks for missing values in important columns
-
--- This query calculates how many rows have missing director values
-SELECT COUNT(*) - COUNT(director) AS missing_director
-FROM netflix_raw;
-
--- This query calculates how many rows have missing cast values
-SELECT COUNT(*) - COUNT(cast) AS missing_cast
-FROM netflix_raw;
-
--- This query calculates how many rows have missing country values
-SELECT COUNT(*) - COUNT(country) AS missing_country
-FROM netflix_raw;
-
--- This section inspects the unique genre combinations present in the dataset
-
--- This query retrieves distinct values from the listed_in column to understand genre categories
-SELECT DISTINCT listed_in
+-- 4) Rating distribution
+SELECT rating, COUNT(*) AS total_titles
 FROM netflix_raw
-LIMIT 20;
+GROUP BY rating
+ORDER BY total_titles DESC;
 
--- This section previews a small sample of the dataset
-
--- This query displays the first five rows to inspect raw data structure
-SELECT *
+-- 5) Top 10 countries
+SELECT country, COUNT(*) AS total_titles
 FROM netflix_raw
-LIMIT 5;
+WHERE country <> 'Unknown'
+GROUP BY country
+ORDER BY total_titles DESC
+LIMIT 10;
+
+-- 6) Top 10 genre combinations
+SELECT listed_in, COUNT(*) AS total_titles
+FROM netflix_raw
+GROUP BY listed_in
+ORDER BY total_titles DESC
+LIMIT 10;
+
+-- 7) Release year summary
+SELECT
+	MIN(release_year) AS min_release_year,
+	MAX(release_year) AS max_release_year,
+	AVG(release_year) AS avg_release_year
+FROM netflix_raw;
+
+-- 8) Titles by release year
+SELECT release_year, COUNT(*) AS total_titles
+FROM netflix_raw
+GROUP BY release_year
+ORDER BY release_year;
+
+-- 9) Titles added by year (date_added format: YYYY-MM-DD)
+SELECT SUBSTRING(date_added, 1, 4) AS added_year, COUNT(*) AS total_titles
+FROM netflix_raw
+WHERE date_added IS NOT NULL
+GROUP BY SUBSTRING(date_added, 1, 4)
+ORDER BY added_year;
+
+-- 10) Simple missing/default checks
+SELECT COUNT(*) AS unknown_director_rows
+FROM netflix_raw
+WHERE director = 'Unknown';
+
+SELECT COUNT(*) AS unknown_cast_rows
+FROM netflix_raw
+WHERE `cast` = 'Unknown';
+
+SELECT COUNT(*) AS unknown_country_rows
+FROM netflix_raw
+WHERE country = 'Unknown';
+
+SELECT COUNT(*) AS missing_date_added_rows
+FROM netflix_raw
+WHERE date_added IS NULL;
